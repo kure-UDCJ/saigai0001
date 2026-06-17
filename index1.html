@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AR表示</title>
+
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;padding:16px}
+    .box{max-width:720px;margin:0 auto}
+    .note{font-size:14px;line-height:1.6;color:#333}
+    .btn{
+      display:inline-block;padding:12px 18px;border-radius:10px;border:1px solid #ccc;
+      text-decoration:none;font-size:16px
+    }
+    model-viewer{width:100%;height:70vh;background:#f3f3f3;border-radius:12px}
+  </style>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+
+<body>
+<div class="box">
+  <h2>AR表示</h2>AR1.glb
+
+  <script>
+    const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    document.documentElement.classList.toggle('ios', isiOS);
+  </script>
+
+  <!-- iOS: rel="ar" + img/picture が必須（WebKit要件） -->
+  <div class="ios-only" style="display:none;">
+    <a class="btn"
+       rel="ar"
+       href="https://kure-udcj.github.io/saigai0001/AR1.usdz?v=2">
+      <img src="preview.jpg" alt="iPhone（Quick Look）で開く" style="height:1px;width:1px;opacity:0;">
+      iPhone（Quick Look）で開く
+    </a>
+    <p class="note">※ボタンをタップするとAR Quick Lookが起動し、終了するとこのページに戻ります。</p>
+  </div>
+
+  <!-- Android: model-viewer -->
+  <div class="android-only">
+    <model-viewer
+      src="https://kure-udcj.github.io/saigai0001/AR1.glb"
+      ar
+      ar-modes="scene-viewer"
+      camera-controls
+      shadow-intensity="0"
+      alt="3Dモデル">
+    </model-viewer>
+  </div>
+
+  <script>
+    const isiOS = document.documentElement.classList.contains('ios');
+    document.querySelector('.ios-only').style.display = isiOS ? 'block' : 'none';
+    document.querySelector('.android-only').style.display = isiOS ? 'none' : 'block';
+  </script>
+</div>
+</body>
+</html>
